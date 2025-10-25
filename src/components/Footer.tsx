@@ -2,14 +2,14 @@ import { MapPin, Mail, Phone } from 'lucide-react';
 
 export default function Footer() {
   return (
-    <footer className="bg-slate-900 text-slate-300">
+    <footer id="contact" className="bg-slate-900 text-slate-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid md:grid-cols-3 gap-8 items-start">
           <div>
             <img
               src="/2025-10-11- Dobeu Logo (Logo with Text)whtiebck.png"
               alt="Dobeu Tech Solutions"
-              className="h-10 mb-4"
+              className="h-10 mb-4 brightness-0 invert"
             />
             <p className="text-slate-400 text-sm leading-relaxed">
               Specialized software for mid-market operations. Built for businesses caught between basic tools and enterprise solutions.

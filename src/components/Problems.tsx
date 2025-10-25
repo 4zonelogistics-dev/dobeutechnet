@@ -2,20 +2,20 @@ import { TrendingDown, Clock, BarChart3, AlertTriangle, FileText, ShieldAlert } 
 
 export default function Problems() {
   return (
-    <section className="py-20 bg-white">
+    <section id="industries" className="py-20 bg-white dark:bg-slate-900">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 mb-4">
+          <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white mb-4">
             Sound Familiar?
           </h2>
-          <p className="text-xl text-slate-600 max-w-3xl mx-auto">
+          <p className="text-xl text-slate-600 dark:text-slate-300 max-w-3xl mx-auto">
             You're caught between basic tools that don't scale and enterprise solutions you can't justify
           </p>
         </div>
 
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-12">
-          <div className="bg-gradient-to-br from-cyan-50 to-blue-50 rounded-2xl p-8 border border-cyan-100">
-            <h3 className="text-2xl font-bold text-slate-900 mb-6 flex items-center gap-3">
+          <div className="bg-gradient-to-br from-cyan-50 to-blue-50 dark:from-cyan-900/20 dark:to-blue-900/20 rounded-2xl p-8 border border-cyan-100 dark:border-cyan-800">
+            <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-6 flex items-center gap-3">
               <span className="w-12 h-12 bg-cyan-500 rounded-lg flex items-center justify-center text-white text-xl font-bold">
                 R
               </span>
@@ -28,10 +28,10 @@ export default function Problems() {
                   <TrendingDown className="w-6 h-6 text-red-600" />
                 </div>
                 <div>
-                  <h4 className="font-semibold text-slate-900 mb-1">
+                  <h4 className="font-semibold text-slate-900 dark:text-white mb-1">
                     Losing $200-300 weekly per location to untracked food waste?
                   </h4>
-                  <p className="text-slate-600 text-sm">
+                  <p className="text-slate-600 dark:text-slate-400 text-sm">
                     Without real-time visibility, you're throwing away profits you can't even measure
                   </p>
                 </div>
@@ -42,10 +42,10 @@ export default function Problems() {
                   <Clock className="w-6 h-6 text-orange-600" />
                 </div>
                 <div>
-                  <h4 className="font-semibold text-slate-900 mb-1">
+                  <h4 className="font-semibold text-slate-900 dark:text-white mb-1">
                     Spending 13+ hours on manual invoice processing?
                   </h4>
-                  <p className="text-slate-600 text-sm">
+                  <p className="text-slate-600 dark:text-slate-400 text-sm">
                     Time your team could spend improving operations instead of chasing paperwork
                   </p>
                 </div>
@@ -56,10 +56,10 @@ export default function Problems() {
                   <BarChart3 className="w-6 h-6 text-yellow-600" />
                 </div>
                 <div>
-                  <h4 className="font-semibold text-slate-900 mb-1">
+                  <h4 className="font-semibold text-slate-900 dark:text-white mb-1">
                     Can't see performance gaps across locations?
                   </h4>
-                  <p className="text-slate-600 text-sm">
+                  <p className="text-slate-600 dark:text-slate-400 text-sm">
                     Flying blind without cross-location visibility means missing optimization opportunities
                   </p>
                 </div>
@@ -67,8 +67,8 @@ export default function Problems() {
             </div>
           </div>
 
-          <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl p-8 border border-blue-100">
-            <h3 className="text-2xl font-bold text-slate-900 mb-6 flex items-center gap-3">
+          <div className="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-2xl p-8 border border-blue-100 dark:border-blue-800">
+            <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-6 flex items-center gap-3">
               <span className="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center text-white text-xl font-bold">
                 F
               </span>
@@ -81,10 +81,10 @@ export default function Problems() {
                   <AlertTriangle className="w-6 h-6 text-red-600" />
                 </div>
                 <div>
-                  <h4 className="font-semibold text-slate-900 mb-1">
+                  <h4 className="font-semibold text-slate-900 dark:text-white mb-1">
                     One safety violation away from a $15K+ DOT penalty?
                   </h4>
-                  <p className="text-slate-600 text-sm">
+                  <p className="text-slate-600 dark:text-slate-400 text-sm">
                     Compliance gaps you don't even know exist could shut down your operation
                   </p>
                 </div>
@@ -95,10 +95,10 @@ export default function Problems() {
                   <FileText className="w-6 h-6 text-orange-600" />
                 </div>
                 <div>
-                  <h4 className="font-semibold text-slate-900 mb-1">
+                  <h4 className="font-semibold text-slate-900 dark:text-white mb-1">
                     Drowning in DVIR paperwork and training documentation?
                   </h4>
-                  <p className="text-slate-600 text-sm">
+                  <p className="text-slate-600 dark:text-slate-400 text-sm">
                     Scattered files across multiple systems make audits a nightmare
                   </p>
                 </div>
@@ -109,10 +109,10 @@ export default function Problems() {
                   <ShieldAlert className="w-6 h-6 text-yellow-600" />
                 </div>
                 <div>
-                  <h4 className="font-semibold text-slate-900 mb-1">
+                  <h4 className="font-semibold text-slate-900 dark:text-white mb-1">
                     Can't justify a full-time safety manager but need compliance coverage?
                   </h4>
-                  <p className="text-slate-600 text-sm">
+                  <p className="text-slate-600 dark:text-slate-400 text-sm">
                     You're stuck doing it yourself or risking costly violations
                   </p>
                 </div>
