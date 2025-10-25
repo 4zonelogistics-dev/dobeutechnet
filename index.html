@@ -8,7 +8,58 @@
     <meta property="og:title" content="Dobeu Tech Solutions - Stop Losing Money to Operational Blind Spots" />
     <meta property="og:description" content="Specialized software for mid-market operations. Eliminate waste, ensure compliance, and scale profitably." />
     <meta property="og:type" content="website" />
+    <meta name="color-scheme" content="light dark" />
     <title>Dobeu Tech Solutions - Operational Software for Mid-Market Businesses</title>
+
+    <script>
+      (function() {
+        'use strict';
+        var STORAGE_KEY = 'dobeu-theme-preference';
+
+        function getSystemPreference() {
+          if (typeof window === 'undefined') return false;
+          return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        }
+
+        function safeLocalStorageGet(key) {
+          try {
+            return localStorage.getItem(key);
+          } catch (e) {
+            return null;
+          }
+        }
+
+        function resolveTheme() {
+          var stored = safeLocalStorageGet(STORAGE_KEY);
+          if (stored === 'light') return 'light';
+          if (stored === 'dark') return 'dark';
+          return getSystemPreference() ? 'dark' : 'light';
+        }
+
+        function applyTheme(theme) {
+          var root = document.documentElement;
+          if (theme === 'dark') {
+            root.setAttribute('data-theme', 'dark');
+            root.style.colorScheme = 'dark';
+          } else {
+            root.setAttribute('data-theme', 'light');
+            root.style.colorScheme = 'light';
+          }
+        }
+
+        var theme = resolveTheme();
+        applyTheme(theme);
+        document.documentElement.classList.add('js-enabled');
+      })();
+    </script>
+
+    <noscript>
+      <style>
+        .requires-js {
+          display: none !important;
+        }
+      </style>
+    </noscript>
   </head>
   <body>
     <div id="root"></div>
