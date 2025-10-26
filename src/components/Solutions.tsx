@@ -31,7 +31,7 @@ export default function Solutions() {
                     <TrendingDown className="w-5 h-5 text-green-600" />
                   </div>
                   <div>
-                    <h4 className="font-semibold text-slate-900 dark:text-white mb-1 leading-[1.4]" style="letter-spacing: 0.015em">
+                    <h4 className="font-semibold text-slate-900 dark:text-white mb-1 leading-[1.4]" style={{ letterSpacing: '0.015em' }}>
                       30% food waste reduction in 60 days
                     </h4>
                     <p className="text-slate-600 dark:text-slate-400 text-sm">
@@ -45,7 +45,7 @@ export default function Solutions() {
                     <Clock className="w-5 h-5 text-blue-600" />
                   </div>
                   <div>
-                    <h4 className="font-semibold text-slate-900 dark:text-white mb-1 leading-[1.4]" style="letter-spacing: 0.015em">
+                    <h4 className="font-semibold text-slate-900 dark:text-white mb-1 leading-[1.4]" style={{ letterSpacing: '0.015em' }}>
                       100+ hours saved monthly on operations
                     </h4>
                     <p className="text-slate-600 dark:text-slate-400 text-sm">
@@ -59,7 +59,7 @@ export default function Solutions() {
                     <DollarSign className="w-5 h-5 text-cyan-600" />
                   </div>
                   <div>
-                    <h4 className="font-semibold text-slate-900 dark:text-white mb-1 leading-[1.4]" style="letter-spacing: 0.015em">
+                    <h4 className="font-semibold text-slate-900 dark:text-white mb-1 leading-[1.4]" style={{ letterSpacing: '0.015em' }}>
                       2-3 month ROI with $20-50K annual savings per location
                     </h4>
                     <p className="text-slate-600 dark:text-slate-400 text-sm">
@@ -109,7 +109,7 @@ export default function Solutions() {
                     <Shield className="w-5 h-5 text-green-600" />
                   </div>
                   <div>
-                    <h4 className="font-semibold text-slate-900 dark:text-white mb-1 leading-[1.4]" style="letter-spacing: 0.015em">
+                    <h4 className="font-semibold text-slate-900 dark:text-white mb-1 leading-[1.4]" style={{ letterSpacing: '0.015em' }}>
                       Centralized DVIR, training, and incident documentation
                     </h4>
                     <p className="text-slate-600 dark:text-slate-400 text-sm">
@@ -123,7 +123,7 @@ export default function Solutions() {
                     <FileText className="w-5 h-5 text-blue-600" />
                   </div>
                   <div>
-                    <h4 className="font-semibold text-slate-900 dark:text-white mb-1 leading-[1.4]" style="letter-spacing: 0.015em">
+                    <h4 className="font-semibold text-slate-900 dark:text-white mb-1 leading-[1.4]" style={{ letterSpacing: '0.015em' }}>
                       Customizable curriculum with compliance templates
                     </h4>
                     <p className="text-slate-600 dark:text-slate-400 text-sm">
@@ -137,7 +137,7 @@ export default function Solutions() {
                     <Users className="w-5 h-5 text-cyan-600" />
                   </div>
                   <div>
-                    <h4 className="font-semibold text-slate-900 dark:text-white mb-1 leading-[1.4]" style="letter-spacing: 0.015em">
+                    <h4 className="font-semibold text-slate-900 dark:text-white mb-1 leading-[1.4]" style={{ letterSpacing: '0.015em' }}>
                       Single-person fleet management for 25-75 vehicle operations
                     </h4>
                     <p className="text-slate-600 dark:text-slate-400 text-sm">

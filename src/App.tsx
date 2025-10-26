@@ -27,7 +27,7 @@ function App() {
         Skip to main content
       </a>
 
-      <Navigation onCTAClick={() => handleOpenModal('strategy')} />
+      <Navigation />
 
       <main id="main-content" role="main">
         <Hero onCTAClick={() => handleOpenModal('strategy')} />

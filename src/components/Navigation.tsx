@@ -2,11 +2,7 @@ import { useState } from 'react';
 import { ArrowRight, Menu, X, Briefcase, Target, Users, Mail } from 'lucide-react';
 import { CompactThemeToggle } from './ThemeToggle';
 
-interface NavigationProps {
-  onCTAClick: () => void;
-}
-
-export default function Navigation({ onCTAClick }: NavigationProps) {
+export default function Navigation() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const scrollToSection = (id: string) => {

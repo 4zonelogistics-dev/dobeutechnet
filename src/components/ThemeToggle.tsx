@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Moon, Sun } from 'lucide-react';
-import { getCurrentTheme, setTheme, watchSystemTheme, type Theme } from '../lib/theme-init';
+import { getCurrentTheme, setTheme, watchSystemTheme } from '../lib/theme-init';
 
 /**
  * Accessible Theme Toggle Component

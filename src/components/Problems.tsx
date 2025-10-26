@@ -30,7 +30,7 @@ export default function Problems() {
                   <TrendingDown className="w-6 h-6 text-red-600" />
                 </div>
                 <div>
-                  <h4 className="font-semibold text-slate-900 dark:text-white mb-1 leading-[1.4]" style="letter-spacing: 0.015em">
+                  <h4 className="font-semibold text-slate-900 dark:text-white mb-1 leading-[1.4]" style={{ letterSpacing: '0.015em' }}>
                     Losing $200-300 weekly per location to untracked food waste?
                   </h4>
                   <p className="text-slate-600 dark:text-slate-400 text-sm">
@@ -44,7 +44,7 @@ export default function Problems() {
                   <Clock className="w-6 h-6 text-orange-600" />
                 </div>
                 <div>
-                  <h4 className="font-semibold text-slate-900 dark:text-white mb-1 leading-[1.4]" style="letter-spacing: 0.015em">
+                  <h4 className="font-semibold text-slate-900 dark:text-white mb-1 leading-[1.4]" style={{ letterSpacing: '0.015em' }}>
                     Spending 13+ hours on manual invoice processing?
                   </h4>
                   <p className="text-slate-600 dark:text-slate-400 text-sm">
@@ -58,7 +58,7 @@ export default function Problems() {
                   <BarChart3 className="w-6 h-6 text-yellow-600" />
                 </div>
                 <div>
-                  <h4 className="font-semibold text-slate-900 dark:text-white mb-1 leading-[1.4]" style="letter-spacing: 0.015em">
+                  <h4 className="font-semibold text-slate-900 dark:text-white mb-1 leading-[1.4]" style={{ letterSpacing: '0.015em' }}>
                     Can't see performance gaps across locations?
                   </h4>
                   <p className="text-slate-600 dark:text-slate-400 text-sm">
@@ -86,7 +86,7 @@ export default function Problems() {
                   <AlertTriangle className="w-6 h-6 text-red-600" />
                 </div>
                 <div>
-                  <h4 className="font-semibold text-slate-900 dark:text-white mb-1 leading-[1.4]" style="letter-spacing: 0.015em">
+                  <h4 className="font-semibold text-slate-900 dark:text-white mb-1 leading-[1.4]" style={{ letterSpacing: '0.015em' }}>
                     One safety violation away from a $15K+ DOT penalty?
                   </h4>
                   <p className="text-slate-600 dark:text-slate-400 text-sm">
@@ -100,7 +100,7 @@ export default function Problems() {
                   <FileText className="w-6 h-6 text-orange-600" />
                 </div>
                 <div>
-                  <h4 className="font-semibold text-slate-900 dark:text-white mb-1 leading-[1.4]" style="letter-spacing: 0.015em">
+                  <h4 className="font-semibold text-slate-900 dark:text-white mb-1 leading-[1.4]" style={{ letterSpacing: '0.015em' }}>
                     Drowning in DVIR paperwork and training documentation?
                   </h4>
                   <p className="text-slate-600 dark:text-slate-400 text-sm">
@@ -114,7 +114,7 @@ export default function Problems() {
                   <ShieldAlert className="w-6 h-6 text-yellow-600" />
                 </div>
                 <div>
-                  <h4 className="font-semibold text-slate-900 dark:text-white mb-1 leading-[1.4]" style="letter-spacing: 0.015em">
+                  <h4 className="font-semibold text-slate-900 dark:text-white mb-1 leading-[1.4]" style={{ letterSpacing: '0.015em' }}>
                     Can't justify a full-time safety manager but need compliance coverage?
                   </h4>
                   <p className="text-slate-600 dark:text-slate-400 text-sm">
