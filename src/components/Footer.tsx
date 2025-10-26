@@ -1,4 +1,5 @@
 import { MapPin, Mail, Phone } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 export default function Footer() {
   return (
@@ -58,10 +59,26 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="border-t border-slate-800 mt-12 pt-8 text-center">
-          <p className="text-sm text-slate-500">
-            &copy; {new Date().getFullYear()} Dobeu Tech Solutions. All rights reserved.
-          </p>
+        <div className="border-t border-slate-800 mt-12 pt-8">
+          <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
+            <p className="text-sm text-slate-500">
+              &copy; {new Date().getFullYear()} Dobeu Tech Solutions. All rights reserved.
+            </p>
+            <div className="flex gap-6">
+              <Link
+                to="/privacy"
+                className="text-sm text-slate-400 hover:text-cyan-400 transition-colors focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2 focus:ring-offset-slate-950 rounded px-2 py-1"
+              >
+                Privacy Policy
+              </Link>
+              <Link
+                to="/tos"
+                className="text-sm text-slate-400 hover:text-cyan-400 transition-colors focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2 focus:ring-offset-slate-950 rounded px-2 py-1"
+              >
+                Terms of Service
+              </Link>
+            </div>
+          </div>
         </div>
       </div>
     </footer>
