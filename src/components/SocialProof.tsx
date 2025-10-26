@@ -2,13 +2,13 @@ import { MapPin, Users, TrendingUp } from 'lucide-react';
 
 export default function SocialProof() {
   return (
-    <section id="social-proof" className="py-20 bg-white dark:bg-slate-900">
+    <section id="social-proof" className="py-20 bg-white dark:bg-slate-900" aria-labelledby="social-proof-heading">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
-          <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white mb-4">
+          <h2 id="social-proof-heading" className="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white mb-6 leading-[1.3]">
             Building with Real Operators
           </h2>
-          <p className="text-xl text-slate-600 dark:text-slate-300 max-w-2xl mx-auto">
+          <p className="text-xl text-slate-600 dark:text-slate-300 max-w-2xl mx-auto leading-[1.6]">
             Currently in pilot programs with mid-market businesses who understand the gap we're filling
           </p>
         </div>
@@ -18,7 +18,7 @@ export default function SocialProof() {
             <div className="w-12 h-12 bg-cyan-500 rounded-lg flex items-center justify-center mb-4">
               <Users className="w-6 h-6 text-white" />
             </div>
-            <h3 className="text-xl font-semibold text-slate-900 dark:text-white mb-2">
+            <h3 className="text-xl font-semibold text-slate-900 dark:text-white mb-2 leading-[1.3]">
               Restaurant Pilots
             </h3>
             <p className="text-slate-700 dark:text-slate-300">
@@ -30,7 +30,7 @@ export default function SocialProof() {
             <div className="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center mb-4">
               <TrendingUp className="w-6 h-6 text-white" />
             </div>
-            <h3 className="text-xl font-semibold text-slate-900 dark:text-white mb-2">
+            <h3 className="text-xl font-semibold text-slate-900 dark:text-white mb-2 leading-[1.3]">
               Fleet Development
             </h3>
             <p className="text-slate-700 dark:text-slate-300">
@@ -42,17 +42,17 @@ export default function SocialProof() {
             <div className="w-12 h-12 bg-slate-700 rounded-lg flex items-center justify-center mb-4">
               <MapPin className="w-6 h-6 text-white" />
             </div>
-            <h3 className="text-xl font-semibold text-slate-900 dark:text-white mb-2">
+            <h3 className="text-xl font-semibold text-slate-900 dark:text-white mb-2 leading-[1.3]">
               Local Focus
             </h3>
             <p className="text-slate-700 dark:text-slate-300">
-              Based in Toms River, NJ - prioritizing businesses within 100 miles for hands-on partnership
+              Based in Neptune, NJ - prioritizing businesses within 100 miles for hands-on partnership
             </p>
           </div>
         </div>
 
         <div className="mt-12 bg-gradient-to-r from-slate-900 to-slate-800 rounded-2xl p-8 sm:p-12 text-center">
-          <h3 className="text-2xl sm:text-3xl font-bold text-white mb-4">
+          <h3 className="text-2xl sm:text-3xl font-bold text-white mb-4 leading-[1.3]">
             Why Mid-Market Operators Choose Us
           </h3>
           <p className="text-slate-300 text-lg max-w-3xl mx-auto">

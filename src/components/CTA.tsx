@@ -7,13 +7,13 @@ interface CTAProps {
 
 export default function CTA({ onStrategyClick, onPilotClick }: CTAProps) {
   return (
-    <section className="py-20 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
+    <section className="py-20 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900" aria-labelledby="cta-heading">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4">
+          <h2 id="cta-heading" className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4 leading-[1.3]">
             Ready to Stop the Profit Leak?
           </h2>
-          <p className="text-xl text-slate-300 max-w-2xl mx-auto">
+          <p className="text-xl text-slate-300 max-w-2xl mx-auto leading-[1.6]">
             Let's quantify exactly where your operations are losing money - and how to fix it
           </p>
         </div>
@@ -30,7 +30,7 @@ export default function CTA({ onStrategyClick, onPilotClick }: CTAProps) {
               <ArrowRight className="w-6 h-6 text-white/80 group-hover:text-white group-hover:translate-x-1 transition-all" />
             </div>
 
-            <h3 className="text-2xl font-bold text-white mb-3">
+            <h3 className="text-2xl font-bold text-white mb-3 leading-[1.3]">
               Book Strategy Session
             </h3>
 
@@ -65,7 +65,7 @@ export default function CTA({ onStrategyClick, onPilotClick }: CTAProps) {
               <ArrowRight className="w-6 h-6 text-slate-400 group-hover:text-cyan-400 group-hover:translate-x-1 transition-all" />
             </div>
 
-            <h3 className="text-2xl font-bold text-white mb-3">
+            <h3 className="text-2xl font-bold text-white mb-3 leading-[1.3]">
               Join Pilot Program
             </h3>
 
@@ -91,7 +91,7 @@ export default function CTA({ onStrategyClick, onPilotClick }: CTAProps) {
         </div>
 
         <p className="text-center text-slate-400 mt-8 text-sm">
-          Currently prioritizing businesses within 100 miles of Toms River, NJ
+          Currently prioritizing businesses within 100 miles of Neptune, NJ
         </p>
       </div>
     </section>

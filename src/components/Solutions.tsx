@@ -2,13 +2,13 @@ import { CheckCircle2, TrendingDown, Clock, DollarSign, Target, Shield, FileText
 
 export default function Solutions() {
   return (
-    <section id="solutions" className="py-20 bg-slate-50 dark:bg-slate-800">
+    <section id="solutions" className="py-20 bg-slate-50 dark:bg-slate-800" aria-labelledby="solutions-heading">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white mb-4">
+          <h2 id="solutions-heading" className="text-3xl sm:text-4xl font-bold text-slate-900 dark:text-white mb-6 leading-[1.3]">
             Software Built for Your Reality
           </h2>
-          <p className="text-xl text-slate-600 dark:text-slate-300 max-w-3xl mx-auto">
+          <p className="text-xl text-slate-600 dark:text-slate-300 max-w-3xl mx-auto leading-[1.6]">
             Specialized solutions for mid-market operators who need more than basic tools but can't justify enterprise pricing
           </p>
         </div>
@@ -16,7 +16,7 @@ export default function Solutions() {
         <div className="grid lg:grid-cols-2 gap-8">
           <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-lg overflow-hidden border border-slate-200 dark:border-slate-700 hover:shadow-xl transition-shadow">
             <div className="bg-gradient-to-r from-cyan-500 to-cyan-600 p-6">
-              <h3 className="text-2xl font-bold text-white mb-2">
+              <h3 className="text-2xl font-bold text-white mb-2 leading-[1.3]">
                 Restaurant Operations Platform
               </h3>
               <p className="text-cyan-50">
@@ -31,7 +31,7 @@ export default function Solutions() {
                     <TrendingDown className="w-5 h-5 text-green-600" />
                   </div>
                   <div>
-                    <h4 className="font-semibold text-slate-900 dark:text-white mb-1">
+                    <h4 className="font-semibold text-slate-900 dark:text-white mb-1 leading-[1.4]" style="letter-spacing: 0.015em">
                       30% food waste reduction in 60 days
                     </h4>
                     <p className="text-slate-600 dark:text-slate-400 text-sm">
@@ -45,7 +45,7 @@ export default function Solutions() {
                     <Clock className="w-5 h-5 text-blue-600" />
                   </div>
                   <div>
-                    <h4 className="font-semibold text-slate-900 dark:text-white mb-1">
+                    <h4 className="font-semibold text-slate-900 dark:text-white mb-1 leading-[1.4]" style="letter-spacing: 0.015em">
                       100+ hours saved monthly on operations
                     </h4>
                     <p className="text-slate-600 dark:text-slate-400 text-sm">
@@ -59,7 +59,7 @@ export default function Solutions() {
                     <DollarSign className="w-5 h-5 text-cyan-600" />
                   </div>
                   <div>
-                    <h4 className="font-semibold text-slate-900 dark:text-white mb-1">
+                    <h4 className="font-semibold text-slate-900 dark:text-white mb-1 leading-[1.4]" style="letter-spacing: 0.015em">
                       2-3 month ROI with $20-50K annual savings per location
                     </h4>
                     <p className="text-slate-600 dark:text-slate-400 text-sm">
@@ -94,7 +94,7 @@ export default function Solutions() {
 
           <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-lg overflow-hidden border border-slate-200 dark:border-slate-700 hover:shadow-xl transition-shadow">
             <div className="bg-gradient-to-r from-blue-600 to-blue-700 p-6">
-              <h3 className="text-2xl font-bold text-white mb-2">
+              <h3 className="text-2xl font-bold text-white mb-2 leading-[1.3]">
                 Fleet Compliance Platform
               </h3>
               <p className="text-blue-50">
@@ -109,7 +109,7 @@ export default function Solutions() {
                     <Shield className="w-5 h-5 text-green-600" />
                   </div>
                   <div>
-                    <h4 className="font-semibold text-slate-900 dark:text-white mb-1">
+                    <h4 className="font-semibold text-slate-900 dark:text-white mb-1 leading-[1.4]" style="letter-spacing: 0.015em">
                       Centralized DVIR, training, and incident documentation
                     </h4>
                     <p className="text-slate-600 dark:text-slate-400 text-sm">
@@ -123,7 +123,7 @@ export default function Solutions() {
                     <FileText className="w-5 h-5 text-blue-600" />
                   </div>
                   <div>
-                    <h4 className="font-semibold text-slate-900 dark:text-white mb-1">
+                    <h4 className="font-semibold text-slate-900 dark:text-white mb-1 leading-[1.4]" style="letter-spacing: 0.015em">
                       Customizable curriculum with compliance templates
                     </h4>
                     <p className="text-slate-600 dark:text-slate-400 text-sm">
@@ -137,7 +137,7 @@ export default function Solutions() {
                     <Users className="w-5 h-5 text-cyan-600" />
                   </div>
                   <div>
-                    <h4 className="font-semibold text-slate-900 dark:text-white mb-1">
+                    <h4 className="font-semibold text-slate-900 dark:text-white mb-1 leading-[1.4]" style="letter-spacing: 0.015em">
                       Single-person fleet management for 25-75 vehicle operations
                     </h4>
                     <p className="text-slate-600 dark:text-slate-400 text-sm">

@@ -1,4 +1,4 @@
-import { useState, FormEvent } from 'react';
+import { useState, FormEvent, useEffect, useRef } from 'react';
 import { X, Send, AlertCircle } from 'lucide-react';
 import { submitLead } from '../lib/supabase';
 
@@ -50,14 +50,53 @@ export default function ContactModal({ isOpen, onClose, type }: ContactModalProp
     setIsSubmitting(false);
   };
 
+  const modalRef = useRef<HTMLDivElement>(null);
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
+
+  useEffect(() => {
+    if (isOpen) {
+      closeButtonRef.current?.focus();
+    }
+  }, [isOpen]);
+
+  useEffect(() => {
+    if (!isOpen) return;
+
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        onClose();
+      }
+    };
+
+    const handleClickOutside = (e: MouseEvent) => {
+      if (modalRef.current && e.target === modalRef.current) {
+        onClose();
+      }
+    };
+
+    document.addEventListener('keydown', handleEscape);
+    document.addEventListener('mousedown', handleClickOutside);
+
+    return () => {
+      document.removeEventListener('keydown', handleEscape);
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isOpen, onClose]);
+
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-      <div className="bg-white rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl">
+    <div
+      ref={modalRef}
+      className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="modal-title"
+    >
+      <div className="bg-white dark:bg-slate-900 rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl">
         <div className="sticky top-0 bg-gradient-to-r from-cyan-500 to-cyan-600 p-6 flex items-center justify-between">
           <div>
-            <h3 className="text-2xl font-bold text-white">
+            <h3 id="modal-title" className="text-2xl font-bold text-white">
               {type === 'strategy' ? 'Book Strategy Session' : 'Join Pilot Program'}
             </h3>
             <p className="text-cyan-50 text-sm mt-1">
@@ -67,10 +106,12 @@ export default function ContactModal({ isOpen, onClose, type }: ContactModalProp
             </p>
           </div>
           <button
+            ref={closeButtonRef}
             onClick={onClose}
-            className="w-10 h-10 bg-white/20 hover:bg-white/30 rounded-lg flex items-center justify-center transition-colors"
+            className="w-10 h-10 bg-white/20 hover:bg-white/30 rounded-lg flex items-center justify-center transition-colors focus:outline-none focus:ring-2 focus:ring-white"
+            aria-label="Close modal"
           >
-            <X className="w-5 h-5 text-white" />
+            <X className="w-5 h-5 text-white" aria-hidden="true" />
           </button>
         </div>
 
@@ -80,8 +121,8 @@ export default function ContactModal({ isOpen, onClose, type }: ContactModalProp
               <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Send className="w-8 h-8 text-green-600" />
               </div>
-              <h4 className="text-2xl font-bold text-slate-900 mb-2">Thank You!</h4>
-              <p className="text-slate-600">
+              <h4 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">Thank You!</h4>
+              <p className="text-slate-600 dark:text-slate-300">
                 We'll be in touch within 24 hours to schedule your session.
               </p>
             </div>
@@ -95,7 +136,7 @@ export default function ContactModal({ isOpen, onClose, type }: ContactModalProp
               )}
               <div className="grid md:grid-cols-2 gap-6">
                 <div>
-                  <label htmlFor="name" className="block text-sm font-semibold text-slate-900 mb-2">
+                  <label htmlFor="name" className="block text-sm font-semibold text-slate-900 dark:text-white mb-2">
                     Full Name *
                   </label>
                   <input
@@ -104,7 +145,7 @@ export default function ContactModal({ isOpen, onClose, type }: ContactModalProp
                     required
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent outline-none transition-all"
+                    className="w-full px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent outline-none transition-all bg-white dark:bg-slate-800 text-slate-900 dark:text-white"
                     placeholder="John Smith"
                   />
                 </div>
@@ -119,7 +160,7 @@ export default function ContactModal({ isOpen, onClose, type }: ContactModalProp
                     required
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent outline-none transition-all"
+                    className="w-full px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent outline-none transition-all bg-white dark:bg-slate-800 text-slate-900 dark:text-white"
                     placeholder="john@company.com"
                   />
                 </div>
@@ -136,7 +177,7 @@ export default function ContactModal({ isOpen, onClose, type }: ContactModalProp
                     required
                     value={formData.company}
                     onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-                    className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent outline-none transition-all"
+                    className="w-full px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent outline-none transition-all bg-white dark:bg-slate-800 text-slate-900 dark:text-white"
                     placeholder="Your Company"
                   />
                 </div>
@@ -150,7 +191,7 @@ export default function ContactModal({ isOpen, onClose, type }: ContactModalProp
                     required
                     value={formData.businessType}
                     onChange={(e) => setFormData({ ...formData, businessType: e.target.value })}
-                    className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent outline-none transition-all"
+                    className="w-full px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent outline-none transition-all bg-white dark:bg-slate-800 text-slate-900 dark:text-white"
                   >
                     <option value="">Select type</option>
                     <option value="restaurant">Restaurant (5-50 locations)</option>

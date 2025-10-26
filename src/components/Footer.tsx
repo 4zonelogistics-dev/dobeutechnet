@@ -2,7 +2,8 @@ import { MapPin, Mail, Phone } from 'lucide-react';
 
 export default function Footer() {
   return (
-    <footer id="contact" className="bg-slate-900 text-slate-300">
+    <footer id="contact" className="relative bg-slate-950 dark:bg-slate-950 text-slate-300 mt-20 pt-2" role="contentinfo" aria-label="Site footer">
+      <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-cyan-500 via-blue-500 to-cyan-500"></div>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="grid md:grid-cols-3 gap-8 items-start">
           <div>
@@ -20,13 +21,13 @@ export default function Footer() {
             <h4 className="text-white font-semibold mb-4">Contact</h4>
             <div className="space-y-3">
               <div className="flex items-start gap-3">
-                <MapPin className="w-5 h-5 text-cyan-400 flex-shrink-0 mt-0.5" />
-                <span className="text-sm">Toms River, NJ</span>
+                <MapPin className="w-5 h-5 text-cyan-400 flex-shrink-0 mt-0.5" aria-hidden="true" />
+                <span className="text-sm">Neptune, NJ</span>
               </div>
               <div className="flex items-start gap-3">
-                <Mail className="w-5 h-5 text-cyan-400 flex-shrink-0 mt-0.5" />
-                <a href="mailto:contact@dobeu.net" className="text-sm hover:text-cyan-400 transition-colors">
-                  contact@dobeu.net
+                <Mail className="w-5 h-5 text-cyan-400 flex-shrink-0 mt-0.5" aria-hidden="true" />
+                <a href="mailto:info@dobeu.net" className="text-sm hover:text-cyan-400 transition-colors focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-offset-2 focus:ring-offset-slate-950 rounded px-1 py-0.5" aria-label="Email us at info@dobeu.net">
+                  info@dobeu.net
                 </a>
               </div>
               <div className="flex items-start gap-3">
@@ -38,8 +39,8 @@ export default function Footer() {
 
           <div>
             <h4 className="text-white font-semibold mb-4">Service Area</h4>
-            <p className="text-sm text-slate-400 leading-relaxed mb-4">
-              Currently prioritizing businesses within 100 miles of Toms River, NJ for pilot program participation and hands-on partnership.
+            <p className="text-sm text-slate-300 leading-relaxed mb-4">
+              Currently prioritizing businesses within 100 miles of Neptune, NJ for pilot program participation and hands-on partnership.
             </p>
             <div className="bg-slate-800 border border-slate-700 rounded-lg p-4">
               <p className="text-xs text-slate-400 mb-2">Pilot Programs Active</p>

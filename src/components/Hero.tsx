@@ -6,18 +6,18 @@ interface HeroProps {
 
 export default function Hero({ onCTAClick }: HeroProps) {
   return (
-    <section className="relative bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white overflow-hidden">
+    <section className="relative bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 text-white overflow-hidden" aria-labelledby="hero-heading">
       <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0zNiAxOGMzLjMxNCAwIDYgMi42ODYgNiA2cy0yLjY4NiA2LTYgNi02LTIuNjg2LTYtNiAyLjY4Ni02IDYtNnoiIHN0cm9rZT0iIzFmMjkzNyIgc3Ryb2tlLXdpZHRoPSIyIi8+PC9nPjwvc3ZnPg==')] opacity-10"></div>
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-32">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           <div className="text-center lg:text-left">
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-6">
+            <h1 id="hero-heading" className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-[1.3] mb-6">
               Stop Losing Money to{' '}
               <span className="text-cyan-400">Operational Blind Spots</span>
             </h1>
 
-            <p className="text-xl sm:text-2xl text-slate-300 mb-8 leading-relaxed">
+            <p className="text-xl sm:text-2xl text-slate-300 mb-8 leading-[1.6]">
               Purpose-built software for mid-market businesses ready to eliminate waste, ensure compliance, and scale profitably
             </p>
 
