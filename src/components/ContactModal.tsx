@@ -1,6 +1,11 @@
-import { useState, FormEvent, useEffect, useRef } from 'react';
-import { X, Send, AlertCircle } from 'lucide-react';
-import { submitLead } from '../lib/supabase';
+import React, { FormEvent, useEffect, useRef } from 'react';
+import { X, Send, AlertCircle, CheckCircle2 } from 'lucide-react';
+import { supabaseQuery } from '../lib/supabase-enhanced';
+import { supabase } from '../lib/supabase';
+import { useFormValidation } from '../hooks/use-form-validation';
+import { useToast } from './ToastContainer';
+import { createAppError, ValidationError } from '../types/errors';
+import { logError } from '../utils/error-logger';
 
 interface ContactModalProps {
   isOpen: boolean;
@@ -9,53 +14,77 @@ interface ContactModalProps {
 }
 
 export default function ContactModal({ isOpen, onClose, type }: ContactModalProps) {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    company: '',
-    businessType: '',
-    phone: '',
-    message: ''
+  const { showSuccess, showError } = useToast();
+  const modalRef = useRef<HTMLDivElement>(null);
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
+  const firstInputRef = useRef<HTMLInputElement>(null);
+
+  const { formState, getFieldProps, validateForm, resetForm, getNormalizedValues } = useFormValidation({
+    name: { required: true, minLength: 2, maxLength: 100 },
+    email: { required: true, email: true },
+    company: { required: true, minLength: 2, maxLength: 100 },
+    businessType: { required: true },
+    phone: { required: true, phone: true },
+    message: { maxLength: 1000 },
   });
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+
+  const [isSubmitting, setIsSubmitting] = React.useState(false);
+  const [submitted, setSubmitted] = React.useState(false);
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
+
+    if (!validateForm()) {
+      showError('Please fix the errors in the form before submitting.');
+      return;
+    }
+
     setIsSubmitting(true);
-    setError(null);
 
-    const result = await submitLead({
-      name: formData.name,
-      email: formData.email,
-      company: formData.company,
-      business_type: formData.businessType,
-      phone: formData.phone,
-      message: formData.message,
-      submission_type: type
-    });
+    try {
+      const normalizedValues = getNormalizedValues();
 
-    if (result.success) {
+      const { data, error } = await supabaseQuery(
+        () => supabase.from('leads').insert([{
+          name: normalizedValues.name,
+          email: normalizedValues.email,
+          company: normalizedValues.company,
+          business_type: normalizedValues.businessType,
+          phone: normalizedValues.phone,
+          message: normalizedValues.message,
+          submission_type: type,
+        }])
+      );
+
+      if (error) {
+        showError(error);
+        const appError = createAppError(new Error(error));
+        logError(appError, { form: 'contact_modal', type });
+        return;
+      }
+
       setSubmitted(true);
+      showSuccess('Form submitted successfully! We\'ll be in touch within 24 hours.');
+
       setTimeout(() => {
         onClose();
         setSubmitted(false);
-        setFormData({ name: '', email: '', company: '', businessType: '', phone: '', message: '' });
-      }, 2000);
-    } else {
-      setError(result.error || 'Failed to submit. Please try again.');
+        resetForm();
+      }, 2500);
+    } catch (err) {
+      const appError = createAppError(err);
+      showError(appError.userMessage);
+      logError(appError, { form: 'contact_modal', type });
+    } finally {
+      setIsSubmitting(false);
     }
-
-    setIsSubmitting(false);
   };
-
-  const modalRef = useRef<HTMLDivElement>(null);
-  const closeButtonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     if (isOpen) {
-      closeButtonRef.current?.focus();
+      setTimeout(() => {
+        firstInputRef.current?.focus();
+      }, 100);
     }
   }, [isOpen]);
 
@@ -94,7 +123,7 @@ export default function ContactModal({ isOpen, onClose, type }: ContactModalProp
       aria-labelledby="modal-title"
     >
       <div className="bg-white dark:bg-slate-900 rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl">
-        <div className="sticky top-0 bg-gradient-to-r from-cyan-500 to-cyan-600 p-6 flex items-center justify-between">
+        <div className="sticky top-0 bg-gradient-to-r from-cyan-500 to-cyan-600 p-6 flex items-center justify-between z-10">
           <div>
             <h3 id="modal-title" className="text-2xl font-bold text-white">
               {type === 'strategy' ? 'Book Strategy Session' : 'Join Pilot Program'}
@@ -117,9 +146,9 @@ export default function ContactModal({ isOpen, onClose, type }: ContactModalProp
 
         <div className="p-8">
           {submitted ? (
-            <div className="text-center py-12">
-              <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <Send className="w-8 h-8 text-green-600" />
+            <div className="text-center py-12" role="status" aria-live="polite">
+              <div className="w-16 h-16 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center mx-auto mb-4">
+                <CheckCircle2 className="w-8 h-8 text-green-600 dark:text-green-400" aria-hidden="true" />
               </div>
               <h4 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">Thank You!</h4>
               <p className="text-slate-600 dark:text-slate-300">
@@ -127,123 +156,185 @@ export default function ContactModal({ isOpen, onClose, type }: ContactModalProp
               </p>
             </div>
           ) : (
-            <form onSubmit={handleSubmit} className="space-y-6">
-              {error && (
-                <div className="bg-red-50 border border-red-200 rounded-lg p-4 flex items-start gap-3">
-                  <AlertCircle className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" />
-                  <p className="text-sm text-red-800">{error}</p>
-                </div>
-              )}
+            <form onSubmit={handleSubmit} className="space-y-6" noValidate>
               <div className="grid md:grid-cols-2 gap-6">
                 <div>
                   <label htmlFor="name" className="block text-sm font-semibold text-slate-900 dark:text-white mb-2">
                     Full Name *
                   </label>
                   <input
+                    ref={firstInputRef}
                     type="text"
                     id="name"
-                    required
-                    value={formData.name}
-                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    className="w-full px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent outline-none transition-all bg-white dark:bg-slate-800 text-slate-900 dark:text-white"
+                    {...getFieldProps('name')}
+                    className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent outline-none transition-all bg-white dark:bg-slate-800 text-slate-900 dark:text-white ${
+                      formState.name.error && formState.name.touched
+                        ? 'border-red-500 dark:border-red-400'
+                        : 'border-slate-300 dark:border-slate-600'
+                    }`}
                     placeholder="John Smith"
+                    aria-invalid={formState.name.error && formState.name.touched ? 'true' : 'false'}
+                    aria-describedby={formState.name.error && formState.name.touched ? 'name-error' : undefined}
                   />
+                  {formState.name.error && formState.name.touched && (
+                    <p id="name-error" className="mt-1 text-sm text-red-600 dark:text-red-400 flex items-center gap-1" role="alert">
+                      <AlertCircle className="w-4 h-4" aria-hidden="true" />
+                      {formState.name.error}
+                    </p>
+                  )}
+                  {!formState.name.error && formState.name.dirty && formState.name.value.trim().length >= 2 && (
+                    <p className="mt-1 text-sm text-green-600 dark:text-green-400 flex items-center gap-1">
+                      <CheckCircle2 className="w-4 h-4" aria-hidden="true" />
+                      Looks good
+                    </p>
+                  )}
                 </div>
 
                 <div>
-                  <label htmlFor="email" className="block text-sm font-semibold text-slate-900 mb-2">
+                  <label htmlFor="email" className="block text-sm font-semibold text-slate-900 dark:text-white mb-2">
                     Email Address *
                   </label>
                   <input
                     type="email"
                     id="email"
-                    required
-                    value={formData.email}
-                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    className="w-full px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent outline-none transition-all bg-white dark:bg-slate-800 text-slate-900 dark:text-white"
+                    {...getFieldProps('email')}
+                    className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent outline-none transition-all bg-white dark:bg-slate-800 text-slate-900 dark:text-white ${
+                      formState.email.error && formState.email.touched
+                        ? 'border-red-500 dark:border-red-400'
+                        : 'border-slate-300 dark:border-slate-600'
+                    }`}
                     placeholder="john@company.com"
+                    aria-invalid={formState.email.error && formState.email.touched ? 'true' : 'false'}
+                    aria-describedby={formState.email.error && formState.email.touched ? 'email-error' : undefined}
                   />
+                  {formState.email.error && formState.email.touched && (
+                    <p id="email-error" className="mt-1 text-sm text-red-600 dark:text-red-400 flex items-center gap-1" role="alert">
+                      <AlertCircle className="w-4 h-4" aria-hidden="true" />
+                      {formState.email.error}
+                    </p>
+                  )}
+                  {!formState.email.error && formState.email.dirty && formState.email.value.includes('@') && (
+                    <p className="mt-1 text-sm text-green-600 dark:text-green-400 flex items-center gap-1">
+                      <CheckCircle2 className="w-4 h-4" aria-hidden="true" />
+                      Valid email
+                    </p>
+                  )}
                 </div>
               </div>
 
               <div className="grid md:grid-cols-2 gap-6">
                 <div>
-                  <label htmlFor="company" className="block text-sm font-semibold text-slate-900 mb-2">
+                  <label htmlFor="company" className="block text-sm font-semibold text-slate-900 dark:text-white mb-2">
                     Company Name *
                   </label>
                   <input
                     type="text"
                     id="company"
-                    required
-                    value={formData.company}
-                    onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-                    className="w-full px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent outline-none transition-all bg-white dark:bg-slate-800 text-slate-900 dark:text-white"
+                    {...getFieldProps('company')}
+                    className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent outline-none transition-all bg-white dark:bg-slate-800 text-slate-900 dark:text-white ${
+                      formState.company.error && formState.company.touched
+                        ? 'border-red-500 dark:border-red-400'
+                        : 'border-slate-300 dark:border-slate-600'
+                    }`}
                     placeholder="Your Company"
+                    aria-invalid={formState.company.error && formState.company.touched ? 'true' : 'false'}
+                    aria-describedby={formState.company.error && formState.company.touched ? 'company-error' : undefined}
                   />
+                  {formState.company.error && formState.company.touched && (
+                    <p id="company-error" className="mt-1 text-sm text-red-600 dark:text-red-400 flex items-center gap-1" role="alert">
+                      <AlertCircle className="w-4 h-4" aria-hidden="true" />
+                      {formState.company.error}
+                    </p>
+                  )}
                 </div>
 
                 <div>
-                  <label htmlFor="businessType" className="block text-sm font-semibold text-slate-900 mb-2">
+                  <label htmlFor="businessType" className="block text-sm font-semibold text-slate-900 dark:text-white mb-2">
                     Business Type *
                   </label>
                   <select
                     id="businessType"
-                    required
-                    value={formData.businessType}
-                    onChange={(e) => setFormData({ ...formData, businessType: e.target.value })}
-                    className="w-full px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent outline-none transition-all bg-white dark:bg-slate-800 text-slate-900 dark:text-white"
+                    {...getFieldProps('businessType')}
+                    className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent outline-none transition-all bg-white dark:bg-slate-800 text-slate-900 dark:text-white ${
+                      formState.businessType.error && formState.businessType.touched
+                        ? 'border-red-500 dark:border-red-400'
+                        : 'border-slate-300 dark:border-slate-600'
+                    }`}
+                    aria-invalid={formState.businessType.error && formState.businessType.touched ? 'true' : 'false'}
+                    aria-describedby={formState.businessType.error && formState.businessType.touched ? 'businessType-error' : undefined}
                   >
                     <option value="">Select type</option>
                     <option value="restaurant">Restaurant (5-50 locations)</option>
                     <option value="fleet">Fleet Operator (25-75 vehicles)</option>
                     <option value="other">Other</option>
                   </select>
+                  {formState.businessType.error && formState.businessType.touched && (
+                    <p id="businessType-error" className="mt-1 text-sm text-red-600 dark:text-red-400 flex items-center gap-1" role="alert">
+                      <AlertCircle className="w-4 h-4" aria-hidden="true" />
+                      {formState.businessType.error}
+                    </p>
+                  )}
                 </div>
               </div>
 
               <div>
-                <label htmlFor="phone" className="block text-sm font-semibold text-slate-900 mb-2">
+                <label htmlFor="phone" className="block text-sm font-semibold text-slate-900 dark:text-white mb-2">
                   Phone Number *
                 </label>
                 <input
                   type="tel"
                   id="phone"
-                  required
-                  value={formData.phone}
-                  onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                  className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent outline-none transition-all"
+                  {...getFieldProps('phone')}
+                  className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent outline-none transition-all bg-white dark:bg-slate-800 text-slate-900 dark:text-white ${
+                    formState.phone.error && formState.phone.touched
+                      ? 'border-red-500 dark:border-red-400'
+                      : 'border-slate-300 dark:border-slate-600'
+                  }`}
                   placeholder="(555) 123-4567"
+                  aria-invalid={formState.phone.error && formState.phone.touched ? 'true' : 'false'}
+                  aria-describedby={formState.phone.error && formState.phone.touched ? 'phone-error' : undefined}
                 />
+                {formState.phone.error && formState.phone.touched && (
+                  <p id="phone-error" className="mt-1 text-sm text-red-600 dark:text-red-400 flex items-center gap-1" role="alert">
+                    <AlertCircle className="w-4 h-4" aria-hidden="true" />
+                    {formState.phone.error}
+                  </p>
+                )}
               </div>
 
               <div>
-                <label htmlFor="message" className="block text-sm font-semibold text-slate-900 mb-2">
+                <label htmlFor="message" className="block text-sm font-semibold text-slate-900 dark:text-white mb-2">
                   Tell us about your biggest operational challenge
                 </label>
                 <textarea
                   id="message"
                   rows={4}
-                  value={formData.message}
-                  onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                  className="w-full px-4 py-3 border border-slate-300 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent outline-none transition-all resize-none"
+                  {...getFieldProps('message')}
+                  className="w-full px-4 py-3 border border-slate-300 dark:border-slate-600 rounded-lg focus:ring-2 focus:ring-cyan-500 focus:border-transparent outline-none transition-all resize-none bg-white dark:bg-slate-800 text-slate-900 dark:text-white"
                   placeholder="What's costing you the most money or time right now?"
                 />
+                {formState.message.value && (
+                  <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
+                    {formState.message.value.length} / 1000 characters
+                  </p>
+                )}
               </div>
 
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full bg-gradient-to-r from-cyan-500 to-cyan-600 hover:from-cyan-600 hover:to-cyan-700 disabled:from-slate-400 disabled:to-slate-500 text-white font-semibold py-4 rounded-lg transition-all duration-300 flex items-center justify-center gap-2"
+                className="w-full bg-gradient-to-r from-cyan-500 to-cyan-600 hover:from-cyan-600 hover:to-cyan-700 disabled:from-slate-400 disabled:to-slate-500 disabled:cursor-not-allowed text-white font-semibold py-4 rounded-lg transition-all duration-300 flex items-center justify-center gap-2 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2"
+                aria-busy={isSubmitting}
               >
                 {isSubmitting ? (
                   <>
-                    <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
-                    Submitting...
+                    <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" aria-hidden="true"></div>
+                    <span>Submitting...</span>
                   </>
                 ) : (
                   <>
-                    <Send className="w-5 h-5" />
-                    Submit Request
+                    <Send className="w-5 h-5" aria-hidden="true" />
+                    <span>Submit Request</span>
                   </>
                 )}
               </button>

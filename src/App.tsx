@@ -7,6 +7,7 @@ import SocialProof from './components/SocialProof';
 import CTA from './components/CTA';
 import Footer from './components/Footer';
 import ContactModal from './components/ContactModal';
+import NetworkStatus from './components/NetworkStatus';
 
 function App() {
   const [modalOpen, setModalOpen] = useState(false);
@@ -26,6 +27,8 @@ function App() {
       <a href="#main-content" className="skip-to-main">
         Skip to main content
       </a>
+
+      <NetworkStatus />
 
       <Navigation />
 
