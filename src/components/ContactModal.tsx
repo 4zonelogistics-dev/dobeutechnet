@@ -4,7 +4,7 @@ import { supabaseQuery } from '../lib/supabase-enhanced';
 import { supabase } from '../lib/supabase';
 import { useFormValidation } from '../hooks/use-form-validation';
 import { useToast } from './ToastContainer';
-import { createAppError, ValidationError } from '../types/errors';
+import { createAppError } from '../types/errors';
 import { logError } from '../utils/error-logger';
 
 interface ContactModalProps {
@@ -44,16 +44,19 @@ export default function ContactModal({ isOpen, onClose, type }: ContactModalProp
     try {
       const normalizedValues = getNormalizedValues();
 
-      const { data, error } = await supabaseQuery(
-        () => supabase.from('leads').insert([{
-          name: normalizedValues.name,
-          email: normalizedValues.email,
-          company: normalizedValues.company,
-          business_type: normalizedValues.businessType,
-          phone: normalizedValues.phone,
-          message: normalizedValues.message,
-          submission_type: type,
-        }])
+      const { error } = await supabaseQuery(
+        async () => {
+          const result = await supabase.from('leads').insert([{
+            name: normalizedValues.name,
+            email: normalizedValues.email,
+            company: normalizedValues.company,
+            business_type: normalizedValues.businessType,
+            phone: normalizedValues.phone,
+            message: normalizedValues.message,
+            submission_type: type,
+          }]);
+          return result;
+        }
       );
 
       if (error) {

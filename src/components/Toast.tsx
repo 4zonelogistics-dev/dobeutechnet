@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { X, CheckCircle, AlertCircle, Info, AlertTriangle } from 'lucide-react';
+import { X, AlertCircle, Info, AlertTriangle } from 'lucide-react';
 import { ErrorSeverity } from '../types/errors';
 
 export interface ToastProps {

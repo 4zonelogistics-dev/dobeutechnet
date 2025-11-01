@@ -40,7 +40,7 @@ export async function supabaseQuery<T>(
       throw new SupabaseError(
         errorMessage,
         'Unable to complete the request. Please try again.',
-        'code' in result.error ? (result.error as { code?: string }).code : undefined
+        typeof result.error === 'object' && result.error !== null && 'code' in result.error ? (result.error as { code?: string }).code : undefined
       );
     }
 

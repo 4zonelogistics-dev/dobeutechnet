@@ -96,9 +96,13 @@ export default function ThemeToggle({ className = '', showLabel = false }: Theme
           className={`
             absolute inset-0 w-5 h-5
             text-amber-500
-            transition-all duration-300 ease-in-out
-            ${isDark ? 'opacity-0 rotate-90 scale-0' : 'opacity-100 rotate-0 scale-100'}
+            transition-opacity duration-200 ease-in-out
+            ${isDark ? 'opacity-0 pointer-events-none' : 'opacity-100'}
           `}
+          style={{
+            transform: isDark ? 'rotate(90deg) scale(0.8)' : 'rotate(0deg) scale(1)',
+            transition: 'opacity 200ms ease-in-out, transform 200ms ease-in-out'
+          }}
           aria-hidden="true"
         />
 
@@ -106,9 +110,13 @@ export default function ThemeToggle({ className = '', showLabel = false }: Theme
           className={`
             absolute inset-0 w-5 h-5
             text-slate-700 dark:text-slate-200
-            transition-all duration-300 ease-in-out
-            ${isDark ? 'opacity-100 rotate-0 scale-100' : 'opacity-0 -rotate-90 scale-0'}
+            transition-opacity duration-200 ease-in-out
+            ${isDark ? 'opacity-100' : 'opacity-0 pointer-events-none'}
           `}
+          style={{
+            transform: isDark ? 'rotate(0deg) scale(1)' : 'rotate(-90deg) scale(0.8)',
+            transition: 'opacity 200ms ease-in-out, transform 200ms ease-in-out'
+          }}
           aria-hidden="true"
         />
       </div>

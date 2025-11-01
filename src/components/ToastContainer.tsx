@@ -5,6 +5,7 @@ import { ErrorSeverity } from '../types/errors';
 interface ToastContextValue {
   showToast: (message: string, severity: ErrorSeverity, duration?: number) => void;
   showInfo: (message: string, duration?: number) => void;
+  showSuccess: (message: string, duration?: number) => void;
   showWarning: (message: string, duration?: number) => void;
   showError: (message: string, duration?: number) => void;
   showCritical: (message: string, duration?: number) => void;
@@ -50,6 +51,10 @@ export function ToastProvider({ children, maxToasts = 5 }: ToastProviderProps) {
     showToast(message, ErrorSeverity.INFO, duration);
   }, [showToast]);
 
+  const showSuccess = useCallback((message: string, duration?: number) => {
+    showToast(message, ErrorSeverity.INFO, duration);
+  }, [showToast]);
+
   const showWarning = useCallback((message: string, duration?: number) => {
     showToast(message, ErrorSeverity.WARNING, duration);
   }, [showToast]);
@@ -65,6 +70,7 @@ export function ToastProvider({ children, maxToasts = 5 }: ToastProviderProps) {
   const value: ToastContextValue = {
     showToast,
     showInfo,
+    showSuccess,
     showWarning,
     showError,
     showCritical,

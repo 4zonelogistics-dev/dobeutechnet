@@ -1,5 +1,5 @@
 import { supabase } from '../lib/supabase';
-import { AppError, ErrorType, ErrorSeverity } from '../types/errors';
+import { AppError, ErrorSeverity } from '../types/errors';
 
 interface ErrorLog extends AppError {
   user_agent?: string;
